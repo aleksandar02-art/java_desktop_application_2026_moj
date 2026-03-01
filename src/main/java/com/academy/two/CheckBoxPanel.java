@@ -51,7 +51,7 @@ public class CheckBoxPanel extends JPanel {
 
     private void updatePicture() {
         IconLoader iconLoader = new IconLoader(CheckBoxPanel.class);
-        String relativePath = "geek/geek-" + pictureChoice + ".gif";
+        String relativePath = "geek1/geek-" + pictureChoice + ".png";
         Icon imageIcon = iconLoader.loadIcon(relativePath);
         pictureLabel.setIcon(imageIcon);
     }
