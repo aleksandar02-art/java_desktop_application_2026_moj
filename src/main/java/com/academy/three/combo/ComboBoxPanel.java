@@ -1,16 +1,13 @@
-package com.academy.three;
+package com.academy.three.combo;
+
+import com.academy.three.DateTimePatternComboBoxListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-
-import static java.awt.Color.green;
 
 public class ComboBoxPanel extends JPanel {
     private final String[] dateTimePatterns ={
@@ -35,7 +32,8 @@ public class ComboBoxPanel extends JPanel {
         JLabel patternLabel1 = new JLabel("Unesite tekstualni pattern datuma/vremena ili");
         JLabel patternLabel2 = new JLabel("odaberite postojeci pattern datuma/vremena");
         JComboBox<String> patternComboBox = new JComboBox<>(dateTimePatterns);
-        DateTimePatternComboBoxListener patternListener = new DateTimePatternComboBoxListener(this::consumeSelectedPattern);
+        patternComboBox.setEditable(true);
+        DateTimePatternComboBoxListener patternListener = new DateTimePatternComboBoxListener(this::formatDateTimeAccordingToSelectedPattern);
         patternComboBox.addActionListener(patternListener);
         JPanel patternPanel = new JPanel();
     //    patternPanel.setBorder(BorderFactory.createLineBorder(Color.red));
@@ -83,10 +81,10 @@ public class ComboBoxPanel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
     }
 
-    private void consumeSelectedPattern(String pattern){
+    private void formatDateTimeAccordingToSelectedPattern(String selectedPatternValue){
   //      LocalDateTime now = LocalDateTime.now();
         ZonedDateTime now = ZonedDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(selectedPatternValue);
         String formattedDate = formatter.format(now);
         resultLabel.setText(formattedDate);
     }
